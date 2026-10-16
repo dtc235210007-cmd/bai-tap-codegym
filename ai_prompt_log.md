@@ -1,13 +1,13 @@
-# Nhật Ký Tương Tác AI (Prompt Log)
+# Nhật Ký Tra Cứu AI (Prompt Log)
 
-### Phiên 1: Thẩm định kiến trúc Bento Box
-- **Prompt:** "Khi tôi cần một bố cục mà một phần tử con (Child) phải chiếm chính xác 2 hàng và 2 cột (span 2 rows, 2 columns) đan xen với các phần tử nhỏ khác, tôi nên chọn CSS Grid hay Flexbox? Tại sao Flexbox lại chật vật với yêu cầu này?"
-- **Phản hồi từ AI & Ứng dụng:** Flexbox chỉ tính toán theo 1 trục chính tại một thời điểm, muốn giả lập bảng 2 chiều phải lồng nhiều lớp flex cột/hàng (`div soup`) và fix cứng chiều cao. Quyết định: Dùng `display: grid; grid-template-columns: repeat(3, 1fr)` và `grid-column: span 2; grid-row: span 2`.
+### Câu hỏi 1: Xử lý Mosaic Gallery 2D bất đối xứng
+- **Prompt:** "Khi dựng thư viện ảnh 1 bên to chiếm 2 hàng và 1 bên gồm 2 ảnh nhỏ xếp chồng, giữa CSS Grid span và position absolute thì Grid giải quyết vấn đề document flow và chiều cao container như thế nào?"
+- **Kết quả áp dụng:** Hiểu rõ cơ chế `span 2` của Grid giữ nguyên luồng tài liệu chuẩn, loại bỏ hoàn toàn thuộc tính `position: absolute` và lỗi đè lấn text.
 
-### Phiên 2: Khai thác thuộc tính `gap` thay thế cho margin hack
-- **Prompt:** "Thuộc tính `gap` hoạt động thế nào trong Flexbox và Grid hiện đại? Lợi ích của nó so với việc dùng margin âm trên container và padding/margin trên từng item con là gì?"
-- **Phản hồi từ AI & Ứng dụng:** `gap` phân tách trực tiếp khoảng cách giữa các phần tử con mà không tạo khoảng thừa ở mép ngoài cùng. Đã áp dụng `gap: 1rem` cho cả `.app-navbar` và `.bento-dashboard`, dẹp bỏ triệt để các class `margin: 5px` của mã cũ.
+### Câu hỏi 2: Kết hợp Flexbox và Bootstrap Utilities cho Author Bar
+- **Prompt:** "Làm sao để dàn một hàng tác giả gồm [Avatar + Info] bên trái và [Share Buttons] bên phải thẳng hàng tuyệt đối theo trục dọc mà không dùng float hay margin căn chỉnh thủ công?"
+- **Kết quả áp dụng:** Sử dụng `display: flex; justify-content: space-between; align-items: center;` kết hợp nhóm avatar + details vào một flex-item con riêng biệt.
 
-### Phiên 3: Tối ưu hàng dọc cho Pricing Card bằng Bootstrap
-- **Prompt:** "Trong Bootstrap 5, khi làm 3 Card giá bằng `row` và `col-md-4`, làm thế nào để các nút bấm Call-to-Action luôn nằm thẳng hàng ở đáy dù độ dài đoạn văn bản mô tả giữa các gói là khác nhau?"
-- **Phản hồi từ AI & Ứng dụng:** Sử dụng `d-flex flex-column` trên `.card-body` và gắn class `mt-auto` lên button. Nút sẽ tự động được đẩy sát đáy card nhờ cơ chế margin auto của Flexbox.
+### Câu hỏi 3: Phân chia Breakpoints Bootstrap cho danh sách 4 thẻ
+- **Prompt:** "Trong Bootstrap 5, cần kết hợp các class nào để danh sách 4 card hiển thị: 4 cột trên Desktop (>=992px), 2 cột trên Tablet (>=768px) và 1 cột trên Mobile (<768px)?"
+- **Kết quả áp dụng:** Áp dụng bộ class `col-12 col-md-6 col-lg-3` bên trong `<div class="row g-4">`.
