@@ -1,0 +1,5 @@
+# Chiến Lược Phân Bổ Bố Cục: CSS Grid vs Flexbox
+
+**CSS Grid** được thiết kế theo tư duy không gian 2 chiều (2D - đồng thời kiểm soát cả hàng lẫn cột). Do đó, Grid là lựa chọn tối ưu cho **Layout tổng thể** (macro-layout) và cấu trúc Bento Box: cha quyết định kích thước và vị trí của con, loại bỏ hoàn toàn các thẻ bọc `div soup`, dễ dàng thực hiện `row-span` và `column-span`.
+
+Ngược lại, **Flexbox** xử lý theo không gian 1 chiều (1D - dọc hoặc ngang). Flexbox hoạt động theo nguyên tắc *content-first* (kích thước phụ thuộc vào nội dung thực tế), là vũ khí hoàn hảo cho **Component chi tiết** (micro-layout) như Navbar, Toolbar, Media Object hoặc căn giữa nội dung bên trong Card/Widget. Khi nội dung đổi ngữ cảnh (như văn bản tiếng Đức dài hơn), Flexbox tự động phân bổ không gian mà không gây vỡ giao diện.

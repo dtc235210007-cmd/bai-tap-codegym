@@ -1,53 +1,134 @@
-    <!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Login</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Photo Gallery</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .gallery-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        .gallery-img {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
+    </style>
 </head>
-<body class="text-center">
+<body class="bg-light py-5">
 
-    <main class="form-signin">
-        <form>
-            <!-- Logo Bootstrap (dùng trực tiếp link SVG online nếu bạn chưa tải ảnh về) -->
-            <img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="Bootstrap Logo" width="72" height="57">
-            
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <div class="container">
+        <!-- Tiêu đề Gallery -->
+        <header class="text-center mb-5">
+            <h1 class="fw-bold">Photo Gallery</h1>
+            <p class="text-muted">Bộ sưu tập hình ảnh responsive với Bootstrap Grid System</p>
+        </header>
 
-            <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" required autofocus>
-                <label for="inputEmail">Email address</label>
+        <!-- Lưới hình ảnh theo yêu cầu:
+             - Desktop (>= 992px): col-lg-3 (4 ảnh/hàng)
+             - Tablet (>= 576px): col-sm-6 (2 ảnh/hàng)
+             - Mobile (< 576px): col-12 (1 ảnh/hàng)
+             - g-4: khoảng cách giữa các cột/hàng
+        -->
+        <div class="row g-4">
+            <!-- Ảnh 1 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1018/600/400" class="card-img-top gallery-img" alt="Nature 1">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Khung cảnh đồi núi</h6>
+                        <p class="card-text text-muted small">Cảnh quan thiên nhiên hoang sơ.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-                <label for="inputPassword">Password</label>
+            <!-- Ảnh 2 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1015/600/400" class="card-img-top gallery-img" alt="Nature 2">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Thung lũng sông</h6>
+                        <p class="card-text text-muted small">Dòng nước trong vắt giữa hai vách đá.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="checkbox mb-3 text-start">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+            <!-- Ảnh 3 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1016/600/400" class="card-img-top gallery-img" alt="Nature 3">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Hẻm núi hùng vĩ</h6>
+                        <p class="card-text text-muted small">Mặt trời chiếu sáng sườn đồi đỏ rực.</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- w-100 giúp nút bấm full width trên Bootstrap 5 -->
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017–2026</p>
-        </form>
-    </main>
+            <!-- Ảnh 4 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1019/600/400" class="card-img-top gallery-img" alt="Nature 4">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Rừng thông bạt ngàn</h6>
+                        <p class="card-text text-muted small">Không gian xanh mát buổi sáng sớm.</p>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-            crossorigin="anonymous"></script>
+            <!-- Ảnh 5 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1025/600/400" class="card-img-top gallery-img" alt="Nature 5">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Chú cún cưng</h6>
+                        <p class="card-text text-muted small">Thú cưng sưởi ấm mùa đông tuyết trắng.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ảnh 6 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1039/600/400" class="card-img-top gallery-img" alt="Nature 6">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Thác nước nhiệt đới</h6>
+                        <p class="card-text text-muted small">Dòng thác đổ giữa khu rừng rậm nhiệt đới.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ảnh 7 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1043/600/400" class="card-img-top gallery-img" alt="Nature 7">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Hoàng hôn bãi biển</h6>
+                        <p class="card-text text-muted small">Ánh nắng chiều tà phản chiếu trên mặt sóng.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ảnh 8 -->
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card h-100 shadow-sm border-0 gallery-card">
+                    <img src="https://picsum.photos/id/1050/600/400" class="card-img-top gallery-img" alt="Nature 8">
+                    <div class="card-body">
+                        <h6 class="card-title fw-semibold">Cung đường ven biển</h6>
+                        <p class="card-text text-muted small">Con đường uốn lượn cạnh ghềnh đá đại dương.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
