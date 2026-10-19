@@ -1,11 +1,23 @@
-private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-        throws SQLException, ServletException, IOException {
-    int id = Integer.parseInt(request.getParameter("id"));
+private void insertUser(HttpServletRequest request, HttpServletResponse response)
+        throws Exception {
+    String name = request.getParameter("name");
+    String email = request.getParameter("email");
+    String country = request.getParameter("country");
 
-    // Gọi phương thức dùng Stored Procedure
-    User existingUser = userDAO.getUserById(id); 
+    // Đọc danh sách checkbox permissions
+    String[] permissionsStr = request.getParameterValues("permissions");
+    int[] permissions = null;
+    if (permissionsStr != null) {
+        permissions = new int[permissionsStr.length];
+        for (int i = 0; i < permissionsStr.length; i++) {
+            permissions[i] = Integer.parseInt(permissionsStr[i]);
+        }
+    }
 
-    RequestDispatcher dispatcher = request.getRequestDispatcher("user/edit.jsp");
-    request.setAttribute("user", existingUser);
-    dispatcher.forward(request, response);
+    User newUser = new User(name, email, country);
+
+    // Thực thi Transaction
+    userDAO.addUserTransaction(newUser, permissions);
+
+    response.sendRedirect("users");
 }
