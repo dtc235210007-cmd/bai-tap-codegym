@@ -9,4 +9,8 @@ public interface IUserDAO {
     List<User> selectAllUsers();
     boolean deleteUser(int id) throws Exception;
     boolean updateUser(User user) throws Exception;
+
+    // 2 hàm mới
+    List<User> searchByCountry(String country);
+    List<User> sortByName();
 }

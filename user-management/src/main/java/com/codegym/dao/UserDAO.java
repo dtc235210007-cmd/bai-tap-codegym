@@ -12,13 +12,17 @@ import java.util.List;
 public class UserDAO implements IUserDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "password"; 
+    private String jdbcPassword = "password"; // Đổi lại đúng mật khẩu MySQL máy bạn
 
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, email, country) VALUES (?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "SELECT id, name, email, country FROM users WHERE id = ?;";
     private static final String SELECT_ALL_USERS = "SELECT * FROM users;";
     private static final String DELETE_USERS_SQL = "DELETE FROM users WHERE id = ?;";
     private static final String UPDATE_USERS_SQL = "UPDATE users SET name = ?, email = ?, country = ? WHERE id = ?;";
+
+    // SQL mới cho tìm kiếm và sắp xếp
+    private static final String SEARCH_USERS_BY_COUNTRY = "SELECT * FROM users WHERE country LIKE ?;";
+    private static final String SORT_USERS_BY_NAME = "SELECT * FROM users ORDER BY name ASC;";
 
     public UserDAO() {}
 
@@ -52,10 +56,7 @@ public class UserDAO implements IUserDAO {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String country = rs.getString("country");
-                user = new User(id, name, email, country);
+                user = new User(id, rs.getString("name"), rs.getString("email"), rs.getString("country"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -70,11 +71,7 @@ public class UserDAO implements IUserDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
+                users.add(new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("country")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,5 +102,38 @@ public class UserDAO implements IUserDAO {
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
+    }
+
+    // Triển khai tìm kiếm theo country
+    @Override
+    public List<User> searchByCountry(String country) {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SEARCH_USERS_BY_COUNTRY)) {
+            statement.setString(1, "%" + country.trim() + "%");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("country")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    // Triển khai sắp xếp theo name ASC
+    @Override
+    public List<User> sortByName() {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SORT_USERS_BY_NAME)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("country")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 }
